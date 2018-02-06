@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { dockerfile true }
 
     stages {
         stage ('Compile Stage') {
@@ -16,15 +16,6 @@ pipeline {
             steps {
                 withMaven(maven : 'maven_3_5_2') {
                     sh 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'maven_3_5_2') {
-                    sh 'mvn deploy'
                 }
             }
         }
