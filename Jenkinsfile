@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-    // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/
-    dockerfile {
-        filename 'Dockerfile'
-    }
-}
+    agent any
 
     stages {
         stage ('Compile Stage') {
@@ -21,6 +16,15 @@ pipeline {
             steps {
                 withMaven(maven : 'maven_3_5_2') {
                     sh 'mvn test'
+                }
+            }
+        }
+        
+        stage ('Deployment Stage') {
+
+            steps {
+                withMaven(maven : 'maven_3_5_2') {
+                    sh 'mvn deploy'
                 }
             }
         }
