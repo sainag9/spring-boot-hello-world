@@ -3,8 +3,6 @@ pipeline {
     // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/
     dockerfile {
         filename 'Dockerfile'
-        dir 'build'
-        additionalBuildArgs  '--build-arg version=1.0.2'
     }
 }
 
