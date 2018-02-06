@@ -24,6 +24,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
-
+<distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>tomcat server</name>
+      <url>http://localhost:5500</url>
+    </repository>
+  </distributionManagement>
 
 </project>
