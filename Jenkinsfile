@@ -23,8 +23,8 @@ pipeline {
         stage ('Deployment Stage') {
 
             steps {
-                withMaven(maven : 'maven_3_5_2') {
-                    sh 'mvn deploy'
+                openshiftDeploy depCfg: 'cart'
+                openshiftVerifyDeployment depCfg: 'cart', replicaCount: 1, verifyReplicaCount: true
                 }
             }
         }
