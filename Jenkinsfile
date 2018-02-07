@@ -25,7 +25,6 @@ pipeline {
             steps {
                 openshiftDeploy depCfg: 'cart'
                 openshiftVerifyDeployment depCfg: 'cart', replicaCount: 1, verifyReplicaCount: true
-                }
             }
         }
     }
