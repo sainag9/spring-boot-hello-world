@@ -15,7 +15,7 @@ node('maven') {
   stage 'deployInDev'
     sh "rm -rf oc-build && mkdir -p oc-build/deployments"
   echo "target"
-    sh "cp target/spring-boot-hello-world.war oc-build/deployments/ROOT.war"
+    sh "cp target/spring-boot-hello-world-1.0-SNAPSHOT.war oc-build/deployments/ROOT.war"
     // clean up. keep the image stream
     sh "oc project ${devProject}"
     sh "oc delete bc,dc,svc,route -l application=${applicationName} -n ${devProject}"
