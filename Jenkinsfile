@@ -3,7 +3,7 @@ node('maven') {
   def mvnCmd = "mvn"
   // injection of environment variables is not done so set them here...
   def sourceRef = "master"
-  def sourceUrl = "https://github.com/lbroudoux/openshift-tasks"
+  def sourceUrl = "https://github.com/sainag9/spring-boot-hello-world"
   def devProject = "ocp-tasks-4"
   def applicationName = "jkf-tasks"
 
@@ -14,7 +14,7 @@ node('maven') {
     sh "${mvnCmd} test"
   stage 'deployInDev'
     sh "rm -rf oc-build && mkdir -p oc-build/deployments"
-    sh "cp target/openshift-tasks.war oc-build/deployments/ROOT.war"
+    sh "cp target/spring-boot-hello-world.war oc-build/deployments/ROOT.war"
     // clean up. keep the image stream
     sh "oc project ${devProject}"
     sh "oc delete bc,dc,svc,route -l application=${applicationName} -n ${devProject}"
