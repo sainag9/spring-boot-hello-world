@@ -20,7 +20,7 @@ node('maven') {
     sh "oc project ${devProject}"
     sh "oc delete bc,dc,svc,route -l application=${applicationName} -n ${devProject}"
     // create build. override the exit code since it complains about existing imagestream
-    sh "oc new-build --name=${applicationName} --image-stream=jboss-eap70-openshift --binary=true --labels=application=${applicationName} -n ${devProject} || true"
+    sh "oc new-build --name=${applicationName}:latest --image-stream=jboss-eap70-openshift --binary=true --labels=application-${applicationName} -n ${devProject} || true"
     // build image
     sh "oc start-build jkf-tasks-docker --from-dir=oc-build --wait=true -n ${devProject}"
     // deploy image
