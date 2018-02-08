@@ -25,3 +25,4 @@ node('maven') {
     // deploy image
     sh "oc new-app ${applicationName}:latest -n ${devProject}"
     sh "oc expose svc/${applicationName} -n ${devProject}"
+}
