@@ -22,7 +22,7 @@ node('maven') {
     // create build. override the exit code since it complains about existing imagestream
     sh "oc new-build --name=${applicationName} --image-stream=jboss-eap70-openshift --binary=true --labels=application=${applicationName} -n ${devProject} || true"
     // build image
-    sh "oc start-build ${applicationName} --from-dir=oc-build --wait=true -n ${devProject}"
+    sh "oc start-build ${applicationName}-docker --from-dir=oc-build --wait=true -n ${devProject}"
     // deploy image
     sh "oc new-app ${applicationName}:latest -n ${devProject}"
     sh "oc expose svc/${applicationName} -n ${devProject}"
