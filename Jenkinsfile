@@ -5,7 +5,7 @@ node('maven') {
   def sourceRef = "master"
   def sourceUrl = "https://github.com/sainag9/spring-boot-hello-world"
   def devProject = "ocp-tasks-7"
-  def applicationName = "spring-boot-hello-world"
+  def applicationName = "spring-boot-hello-world-1.0-SNAPSHOT"
 
   stage 'build'
     git branch: sourceRef, url: sourceUrl
