@@ -4,7 +4,7 @@ node('maven') {
   // injection of environment variables is not done so set them here...
   def sourceRef = "master"
   def sourceUrl = "https://github.com/sainag9/spring-boot-hello-world"
-  def devProject = "ocp-tasks-4"
+  def devProject = "ocp-tasks-5"
   def applicationName = "jkf-tasks"
 
   stage 'build'
