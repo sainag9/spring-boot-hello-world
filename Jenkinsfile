@@ -15,7 +15,7 @@ node('maven') {
   stage 'deployInDev'
     sh "rm -rf oc-build && mkdir -p oc-build/deployments"
   echo "target"
-    sh "cp target/openshift-tasks.war oc-build/deployments/ROOT.war"
+    sh "cp target/spring-boot-hello-world.jar oc-build/deployments/ROOT.jar"
     // clean up. keep the image stream
     sh "oc project ${devProject}"
     sh "oc delete bc,dc,svc,route -l application=${applicationName} -n ${devProject}"
