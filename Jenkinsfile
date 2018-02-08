@@ -12,18 +12,10 @@ node('maven') {
     sh "${mvnCmd} clean install -DskipTests=true"
   stage 'test'
     sh "${mvnCmd} test"
-  stage 'deployInDev'
-    sh "rm -rf oc-build && mkdir -p oc-build/deployments"
-  echo "target"
-    sh "cp target/spring-boot-hello-world-1.0-SNAPSHOT.war oc-build/deployments/ROOT.war"
-    // clean up. keep the image stream
-    sh "oc project ${devProject}"
-    sh "oc delete bc,dc,svc,route -l application=${applicationName} -n ${devProject}"
-    // create build. override the exit code since it complains about existing imagestream
-    sh "oc new-build --name=${applicationName} --image-stream=jboss-eap70-openshift --binary=true --labels=application=${applicationName} -n ${devProject} || true"
-    // build image
-    sh "oc start-build ${applicationName} --from-dir=oc-build --wait=true -n ${devProject}"
-    // deploy image
-    sh "oc new-app ${applicationName}:latest -n ${devProject}"
-    sh "oc expose svc/${applicationName} -n ${devProject}"
+  stage 'sonar'
+    node {
+              withSonarQubeEnv('My SonarQube Server') {
+                 sh 'mvn clean package sonar:sonar'
+              }
+          }
 }
