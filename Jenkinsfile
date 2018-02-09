@@ -27,7 +27,7 @@ pipeline {
         }
         withSonarQubeEnv('SonarQube') {
           //sh "${scannerHome}/bin/sonar-scanner"
-           sh mvn clean verify sonar:sonar
+           sh "mvn clean verify sonar:sonar"
         }
       }
     }
