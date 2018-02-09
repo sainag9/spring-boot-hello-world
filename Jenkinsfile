@@ -20,13 +20,17 @@ pipeline {
             }
         }
 stage("build & SonarQube analysis") {
-          steps {
-              withSonarQubeEnv('SonarQube') {
-                  withMaven(maven : 'maven_3_5_2') {
-                    sh 'mvn clean package sonar:sonar'
-                }
-              }
-          }
+    stage('SonarQube analysis') {
+      steps {
+        script {
+          // requires SonarQube Scanner 2.8+
+          scannerHome = tool 'SonarQube Scanner 2.8'
+        }
+        withSonarQubeEnv('SonarQube') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
+      }
+    }
       }
 
         
