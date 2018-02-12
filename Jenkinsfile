@@ -40,8 +40,8 @@ node('maven') {
 
         sh """
          set +x
-         echo '${(oc get bc ${appName} -n ${devProject})}'
-         echo '${(oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}')}'
+         echo '${oc get bc ${appName} -n ${devProject}}'
+         echo '${oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}'}'
          currentOutputName=\$(oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}')
          newImageName=\${currentOutputName%:*}:${version}
          oc patch bc ${appName} -n ${devProject} -p "{ \\"spec\\": { \\"output\\": { \\"to\\": { \\"name\\": \\"\${newImageName}\\" } } } }"
