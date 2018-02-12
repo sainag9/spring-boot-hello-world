@@ -40,7 +40,7 @@ node('maven') {
 
         sh """
          set +x
-         currentOutputName=\$(oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}')
+         currentOutputName=\$(oc get bc ${appName} -n ${devProject})
          newImageName=\${currentOutputName%:*}:${version}
          oc patch bc ${appName} -n ${devProject} -p "{ \\"spec\\": { \\"output\\": { \\"to\\": { \\"name\\": \\"\${newImageName}\\" } } } }"
          mkdir -p ${WORKSPACE}//target/s2i-build/deployments
