@@ -36,15 +36,6 @@ node('maven') {
 
         version = parseVersion("${WORKSPACE}/pom.xml")
 
-        login()
-
-        sh """
-         set +x
-         mkdir -p ${WORKSPACE}//target/s2i-build/deployments
-         cp ${WORKSPACE}//target/*.war ${WORKSPACE}//target/s2i-build/deployments/
-         oc start-build ${appName} -n ${devProject} --follow=true --wait=true --from-dir="${WORKSPACE}//target/s2i-build"
-       """
-
       stage "Dev Deployment"
 
         login()
