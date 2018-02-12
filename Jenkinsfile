@@ -1,4 +1,4 @@
-def devProject = "ocp-tasks-13"
+def devProject = "ocp-tasks-15"
 def uatProject = "cloudapps-uat"
 def prodProject = "cloudapps-prod"
 def appName = "cloudapps-pipeline"
