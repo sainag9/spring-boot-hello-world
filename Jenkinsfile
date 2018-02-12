@@ -36,6 +36,20 @@ node('maven') {
 
         version = parseVersion("${WORKSPACE}/pom.xml")
 
+        login()
+
+        sh """
+         set +x
+         echo '${(oc get bc ${appName} -n ${devProject})}'
+         echo '${(oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}')}'
+         currentOutputName=\$(oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}')
+         newImageName=\${currentOutputName%:*}:${version}
+         oc patch bc ${appName} -n ${devProject} -p "{ \\"spec\\": { \\"output\\": { \\"to\\": { \\"name\\": \\"\${newImageName}\\" } } } }"
+         mkdir -p ${WORKSPACE}//target/s2i-build/deployments
+         cp ${WORKSPACE}//target/*.war ${WORKSPACE}//target/s2i-build/deployments/
+         oc start-build ${appName} -n ${devProject} --follow=true --wait=true --from-dir="${WORKSPACE}//target/s2i-build"
+       """
+
       stage "Dev Deployment"
 
         login()
@@ -192,3 +206,4 @@ def validateDeployment(String dcName, String namespace) {
       set -e
     """
 }
+
