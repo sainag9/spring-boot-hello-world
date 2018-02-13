@@ -1,7 +1,7 @@
 def devProject = "ocp-tasks-15"
 def uatProject = "cloudapps-uat"
 def prodProject = "cloudapps-prod"
-def appName = "cloudapps-pipeline"
+def appName = "spring-boot-hello-world"
 
 node('maven') {   
 
