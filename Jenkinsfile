@@ -42,8 +42,7 @@ node('maven') {
          set +x
          currentOutputName=\$(oc get bc ${appName} -n ${devProject} --template=${appName})
          newImageName=\${currentOutputName%:*}:${version}
-         echo 'newImageName'
-         oc patch bc ${appName} -n ${devProject} -p "{ \\"spec\\": { \\"output\\": { \\"to\\": { \\"name\\": \\"\${newImageName}\\" } } } }"
+         
          mkdir -p ${WORKSPACE}//target/s2i-build/deployments
          cp ${WORKSPACE}//target/*.war ${WORKSPACE}//target/s2i-build/deployments/
          oc start-build ${appName} -n ${devProject} --follow=true --wait=true --from-dir="${WORKSPACE}//target/s2i-build"
