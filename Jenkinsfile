@@ -1,4 +1,4 @@
-def devProject = "ocp-tasks"
+def devProject = "ocp-tasks-15"
 def uatProject = "cloudapps-uat"
 def prodProject = "cloudapps-prod"
 def appName = "cloudapps-pipeline"
@@ -40,7 +40,7 @@ node('maven') {
 
         sh """
          set +x
-         currentOutputName=\$(oc get bc ${appName} -n ${devProject} --template='{{ .spec.output.to.name }}')
+         currentOutputName=\$(oc get bc ${appName} -n ${devProject} --template=${appName})
          newImageName=\${currentOutputName%:*}:${version}
          oc patch bc ${appName} -n ${devProject} -p "{ \\"spec\\": { \\"output\\": { \\"to\\": { \\"name\\": \\"\${newImageName}\\" } } } }"
          mkdir -p ${WORKSPACE}//target/s2i-build/deployments
