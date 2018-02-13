@@ -46,6 +46,7 @@ node('maven') {
          mkdir -p ${WORKSPACE}//target/s2i-build/deployments
          cp ${WORKSPACE}//target/*.war ${WORKSPACE}//target/s2i-build/deployments/
          echo "workspace:" ${WORKSPACE}
+         echo "buildnumber:"${BUILD_NUMBER}
          oc start-build ${appName} -n ${devProject} --follow=true --wait=true --from-dir="${WORKSPACE}//target/s2i-build"
        """
 
