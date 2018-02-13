@@ -48,6 +48,7 @@ node('maven') {
          echo "workspace:" ${WORKSPACE}
          echo "buildnumber:"${BUILD_NUMBER}
          oc start-build ${appName} -n ${devProject} --follow=true --wait=true --from-dir="${WORKSPACE}//target/s2i-build"
+         echo "buildnumber2:"${BUILD_NUMBER}
        """
 
       stage "Dev Deployment"
