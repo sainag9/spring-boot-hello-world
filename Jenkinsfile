@@ -1,4 +1,4 @@
-def devProject = "ocp-tasks-19"
+def devProject = "ocp-tasks-20"
 def uatProject = "cloudapps-uat"
 def prodProject = "cloudapps-prod"
 def appName = "spring-boot-hello-world"
