@@ -1,5 +1,3 @@
-	#!groovy
-	
 	// Run this node on a Maven Slave
 	// Maven Slaves have JDK and Maven already installed
 	node('maven') {
