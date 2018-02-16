@@ -5,7 +5,7 @@
 	node('maven') {
 	  // Make sure your nexus_openshift_settings.xml
 	  // Is pointing to your nexus instance
-	  def mvnCmd = "mvn -s ./nexus_openshift_settings.xml"
+	  def mvnCmd = "mvn"
 	
 	  stage('Checkout Source') {
 	    // Get Source Code from SCM (Git) as configured in the Jenkins Project
@@ -30,18 +30,7 @@
 	    echo "Unit Tests"
 	    sh "${mvnCmd} test"
 	  }
-	  stage('Code Analysis') {
-	    echo "Code Analysis"
-	
-	    // Replace xyz-sonarqube with the name of your project
-	    sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube.xyz-sonarqube.svc.cluster.local:9000/ -Dsonar.projectName=${JOB_BASE_NAME}"
-	  }
-	  stage('Publish to Nexus') {
-	    echo "Publish to Nexus"
-	
-	    // Replace xyz-nexus with the name of your project
-	    sh "${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3.xyz-nexus.svc.cluster.local:8081/repository/releases"
-	  }
+	  
 	
 	  stage('Build OpenShift Image') {
 	    def newTag = "TestingCandidate-${version}"
